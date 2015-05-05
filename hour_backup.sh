@@ -15,4 +15,17 @@ today_dir=$target_dir"/today";
 if [ ! -d $today_dir  ]; then
   mkdir $today_dir;
 fi
+#每小时备份
 cp $rdb_file  $today_dir"/hour_"$hour".rdb";
+
+#每天备份一次
+#创建目录guidang
+guidang_dir=$target_dir"/guidang";
+if [ ! -d $guidang_dir  ]; then
+  mkdir $guidang_dir;
+fi
+if [ $hour == 0 ];then
+  date=`date +%Y-%m-%d`;
+  cp $rdb_file  $guidang_dir"/day_""$date"".rdb";
+fi
+#rsync同步
